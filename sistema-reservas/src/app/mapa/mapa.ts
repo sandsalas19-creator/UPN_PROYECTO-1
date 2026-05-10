@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 interface Room {
   id: string;
@@ -17,7 +17,10 @@ interface Floor {
 @Component({
   selector: 'app-mapa',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    RouterLink
+  ],
   templateUrl: './mapa.html',
   styleUrls: ['./mapa.css']
 })
@@ -31,13 +34,15 @@ export class MapaComponent {
 
   pisoExpandido: number | null = null;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router
+  ) {
     this.construirTorre();
   }
 
-  construirTorre() {
+  construirTorre(): void {
 
-    let edificio: Floor[] = [];
+    const edificio: Floor[] = [];
 
     const facultades = [
       'Servicios',
@@ -56,81 +61,127 @@ export class MapaComponent {
 
       let rooms: Room[] = [];
 
-      let tipoPiso = facultades[i - 1];
+      const tipoPiso = facultades[i - 1];
+
+      /* ===== PISO 1 ===== */
 
       if (i === 1) {
 
         rooms = [
+
           {
             id: '101',
             nombre: 'Recepción Principal',
             tipo: 'recepcion'
           },
+
           {
             id: '102',
             nombre: 'Cafetería Central',
             tipo: 'comedor'
           }
+
         ];
 
-      } else if (i === 10) {
+      }
+
+      /* ===== PISO 10 ===== */
+
+      else if (i === 10) {
 
         rooms = [
+
           {
             id: '1001',
             nombre: 'Cancha de Básquet',
             tipo: 'deporte'
           },
+
           {
             id: '1002',
             nombre: 'Comedor Panorámico',
             tipo: 'comedor'
           }
+
         ];
 
-      } else {
+      }
+
+      /* ===== AULAS ===== */
+
+      else {
 
         for (let r = 1; r <= 5; r++) {
 
           rooms.push({
+
             id: `${i}0${r}`,
+
             nombre: `Aula ${i}0${r}`,
+
             tipo: 'aula'
+
           });
 
         }
+
       }
 
       edificio.push({
+
         numero: i,
+
         nombre: `Piso ${i} - ${tipoPiso}`,
+
         rooms: rooms
+
       });
 
     }
 
     this.pisos = edificio.reverse();
+
   }
 
-  seleccionarEspacio(piso: Floor, room: Room) {
+  seleccionarEspacio(
+    piso: Floor,
+    room: Room
+  ): void {
 
     this.pisoSeleccionado = piso;
 
     this.aulaSeleccionada = room;
 
     this.pisoExpandido = piso.numero;
+
   }
 
-  irAReservas() {
+  irAReservas(): void {
 
     if (this.aulaSeleccionada?.tipo === 'aula') {
-      this.router.navigate(['/reservas']);
+
+      this.router.navigate([
+        '/reservas'
+      ]);
+
     }
 
   }
 
-  volverAlLogin() {
-    this.router.navigate(['/login']);
+  irAReportarIncidencia(): void {
+
+    this.router.navigate([
+      '/reportar-incidencias'
+    ]);
+
+  }
+
+  volverAlLogin(): void {
+
+    this.router.navigate([
+      '/login'
+    ]);
+
   }
 
 }

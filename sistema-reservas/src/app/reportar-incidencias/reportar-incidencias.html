@@ -1,0 +1,207 @@
+<div class="incidencias-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sidebar-header">
+
+      <h2>Portal Académico</h2>
+
+      <p>Gestión de incidencias</p>
+
+    </div>
+
+    <!-- FILTRO -->
+    <div class="sidebar-section">
+
+      <label>DÍA DE LA SEMANA</label>
+
+      <select>
+        <option>Jueves</option>
+        <option>Viernes</option>
+        <option>Sábado</option>
+      </select>
+
+    </div>
+
+    <!-- CURSOS -->
+    <div class="sidebar-section">
+
+      <label>SELECCIONAR CURSO</label>
+
+      <!-- CURSO 1 -->
+      <button
+        class="curso-btn"
+        [class.activo]="cursoSeleccionado() === 'Inteligencia de Negocios'"
+        (click)="seleccionarCurso('Inteligencia de Negocios')"
+      >
+        Inteligencia de Negocios
+      </button>
+
+      <!-- CURSO 2 -->
+      <button
+        class="curso-btn"
+        [class.activo]="cursoSeleccionado() === 'Arquitectura de Software'"
+        (click)="seleccionarCurso('Arquitectura de Software')"
+      >
+        Arquitectura de Software
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main class="contenido">
+
+    <!-- TOP CARDS -->
+    <div class="top-cards">
+
+      <!-- CARD -->
+      <div class="card">
+
+        <span>ENCARGADO</span>
+
+        <h3>Estudiante</h3>
+
+      </div>
+
+      <!-- CARD -->
+      <div class="card">
+
+        <span>MÓDULO</span>
+
+        <h3>Reportar Incidencias</h3>
+
+      </div>
+
+      <!-- CARD -->
+      <div class="card estado">
+
+        <span>ESTADO</span>
+
+        <div class="estado-badge">
+          Activo
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="formulario-card">
+
+      <h2>Reportar Incidencia</h2>
+
+      <!-- CURSO -->
+      <div class="form-group">
+
+        <label>Curso</label>
+
+        <select>
+
+          <option>
+            {{ cursoSeleccionado() }}
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- TIPO -->
+      <div class="form-group">
+
+        <label>Tipo de incidencia</label>
+
+        <select>
+
+          <option>Error del sistema</option>
+
+          <option>Problema visual</option>
+
+          <option>Error de acceso</option>
+
+          <option>Error de reserva</option>
+
+          <option>Otro</option>
+
+        </select>
+
+      </div>
+
+      <!-- PRIORIDAD -->
+      <div class="form-group">
+
+        <label>Prioridad</label>
+
+        <div class="prioridades">
+
+          <!-- BAJA -->
+          <button
+            class="prioridad baja"
+            [class.prioridad-activa]="prioridadSeleccionada() === 'Baja'"
+            (click)="seleccionarPrioridad('Baja')"
+          >
+            Baja
+          </button>
+
+          <!-- MEDIA -->
+          <button
+            class="prioridad media"
+            [class.prioridad-activa]="prioridadSeleccionada() === 'Media'"
+            (click)="seleccionarPrioridad('Media')"
+          >
+            Media
+          </button>
+
+          <!-- ALTA -->
+          <button
+            class="prioridad alta"
+            [class.prioridad-activa]="prioridadSeleccionada() === 'Alta'"
+            (click)="seleccionarPrioridad('Alta')"
+          >
+            Alta
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- DESCRIPCIÓN -->
+      <div class="form-group">
+
+        <label>Descripción</label>
+
+        <textarea
+          rows="6"
+          placeholder="Presenta un error del sistema de la reserva..."
+        ></textarea>
+
+      </div>
+
+      <!-- BOTÓN -->
+      <button
+        class="btn-publicar"
+        (click)="publicarIncidencia()"
+      >
+
+        Publicar Incidencia
+
+      </button>
+
+      <!-- TICKET -->
+      <div
+        class="ticket-box"
+        *ngIf="ticketGenerado()"
+      >
+
+        🎫 Ticket generado:
+        <strong>{{ ticketGenerado() }}</strong>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>

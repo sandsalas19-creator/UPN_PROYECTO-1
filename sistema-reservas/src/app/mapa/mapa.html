@@ -3,10 +3,24 @@
   <!-- PANEL IZQUIERDO -->
   <aside class="sidebar">
 
+    <!-- BOTÓN VOLVER -->
     <div class="back-button" (click)="volverAlLogin()">
       ← Volver
     </div>
 
+    <!-- BOTÓN REPORTAR INCIDENCIA -->
+    <div class="acciones-sidebar">
+
+      <button
+        class="btn-incidencia"
+        routerLink="/reportar-incidencias"
+      >
+        🚨 Reportar Incidencia
+      </button>
+
+    </div>
+
+    <!-- MARCA -->
     <div class="brand">
 
       <span class="mini-title">
@@ -23,6 +37,7 @@
 
     </div>
 
+    <!-- INFORMACIÓN DEL AULA -->
     <div
       class="info-card"
       *ngIf="aulaSeleccionada; else emptyState"
@@ -45,6 +60,7 @@
         Puedes visualizar disponibilidad y gestionar reservas.
       </p>
 
+      <!-- BOTÓN RESERVA -->
       <button
         class="reserve-btn"
         *ngIf="aulaSeleccionada.tipo === 'aula'"
@@ -96,9 +112,11 @@
 
         <!-- ETIQUETA -->
         <div class="floor-label">
+
           <span>
             P{{ piso.numero }}
           </span>
+
         </div>
 
         <!-- CONTENIDO -->
